@@ -1,7 +1,7 @@
 // @todo configure grunt default stuff to run on every save so we know that 
 // dist is always up to date and jsLinted
 
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 
     require('load-grunt-tasks')(grunt, {
         scope: ['dependencies', 'devDependencies']
@@ -45,7 +45,26 @@ module.exports = function(grunt) {
                 options: {
                     port: 9999
                 }
-            },
+            }
+        },
+        copy: {
+            main: {
+                files: [
+                    {src: ['src/unsavedChanges.js'], dest: 'dist/unsavedChanges.js'}
+                ]
+            }
+        },
+        ngAnnotate: {
+            main: {
+                'src': ['dist/unsavedChanges.min.js'],
+                'dest': 'dist/unsavedChanges.min.js'
+            }
+        },
+        uglify: {
+            main: {
+                'src': ['dist/unsavedChanges.min.js'],
+                'dest': 'dist/unsavedChanges.min.js'
+            }
         },
         // watch tasks
         // Watch specified files for changes and execute tasks on change
@@ -59,7 +78,7 @@ module.exports = function(grunt) {
                     'demo/*.js'
                 ],
                 tasks: ['jshint']
-            },
+            }
         },
         karma: {
             plugins: [
@@ -74,12 +93,6 @@ module.exports = function(grunt) {
                 configFile: 'karma-unit.conf.js',
                 autoWatch: true,
                 singleRun: false
-            }
-        },
-        'min': {
-            'dist': {
-                'src': ['dist/unsavedChanges.js'],
-                'dest': 'dist/unsavedChanges.min.js'
             }
         },
         jshint: {
@@ -117,7 +130,9 @@ module.exports = function(grunt) {
     grunt.registerTask('default', [
         'jshint',
         'strip:main',
-        'min'
+        'copy:main',
+        'ngAnnotate:main',
+        'uglify:main'
     ]);
 
     grunt.registerTask('autotest:e2e', [

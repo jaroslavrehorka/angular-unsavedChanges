@@ -100,7 +100,8 @@ Set custom message displayed when user refreshes the page. If using translate th
 ```
 unsavedWarningsConfigProvider.reloadMessage = "Custom Reload Message";
 ```
-
+## Events
+Event `unsavedFormStay` is fired when when user choose not to leave page otherwise `resetResettables` is fired
 
 ## Gotchas / Known Bugs
 

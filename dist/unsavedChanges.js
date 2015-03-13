@@ -211,6 +211,7 @@ angular.module('unsavedChanges', ['resettable'])
                         if (!confirm(translateIfAble(messages.navigate))) {
                             unsavedWarningsConfig.log("user wants to cancel leaving");
                             event.preventDefault(); // user clicks cancel, wants to stay on page
+                            $rootScope.$broadcast('unsavedFormStay');
                         } else {
                             unsavedWarningsConfig.log("user doesn't care about loosing stuff");
                             $rootScope.$broadcast('resetResettables');
