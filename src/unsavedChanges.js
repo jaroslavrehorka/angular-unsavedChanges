@@ -215,6 +215,10 @@ angular.module('unsavedChanges', ['resettable'])
                         } else {
                             unsavedWarningsConfig.log("user doesn't care about loosing stuff");
                             $rootScope.$broadcast('resetResettables');
+
+                            angular.forEach(removeFunctions, function (fn) {
+                                fn();
+                            });
                         }
                     } else {
                         unsavedWarningsConfig.log("all forms are clean");
